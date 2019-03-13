@@ -1,3 +1,4 @@
+//Constants and others to be used
 #include "utils.h"
 #include "peripherals/mini_uart.h"
 #include "peripherals/gpio.h"
@@ -7,9 +8,8 @@
 void uart_init (unsigned int baudrate )
 {
 	unsigned int selector;
-	//With a variable baudrate
 
-	//Exercise 1
+	//With a variable baudrate
 	unsigned int baudrate_reg;
 	if (baudrate > 0 && baudrate < 115200)
 	{
@@ -82,11 +82,6 @@ void uart_init (unsigned int baudrate )
 
 	put32(AUX_MU_IIR_REG, 6);       // Clear FIFO
 	put32(AUX_MU_CNTL_REG,3);       //Finally, enable transmitter and receiver
-}
-
-void uart_init_115200 ( void ) //We can keep to use this function in kernel.c
-{
-	uart_init(0);
 }
 
 //After setting the mini_uart we can try it sending and receiving data

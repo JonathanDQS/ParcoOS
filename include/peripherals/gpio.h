@@ -1,6 +1,7 @@
 #ifndef	_P_GPIO_H
 #define	_P_GPIO_H
 
+//Rely on base and offsets 
 #include "peripherals/base.h"
 
 //GPIO function select 1

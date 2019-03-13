@@ -8,7 +8,10 @@ despues llamar a sudo screen ttyUSB0 115200 o el baudrate seteado en el archivo
 
 cambiaste lo de arm_control = 0x200
 
-funciona con 115200
-tambien con 19200 
-sin embargo tiene errores de tiempo no se por que 
-usamos multi procesadores el primero imprime hello world y el segundo recibe y envia lo que enviamos a menos que sea "a" en cuyo caso imprime "hola mundo"
+usamos multi procesadores el primero imprime hello world y el segundo recibe y envia lo que enviamos
+
+cuidado con tener multiple screen up
+screen -ls
+y luego kill
+
+o sino cuando en la screen ctrl+a y luego :quit

@@ -1,6 +1,7 @@
 #ifndef	_P_MINI_UART_H
 #define	_P_MINI_UART_H
 
+//Use base and offsets
 #include "peripherals/base.h"
 
 //Base is the start of memory reserved for devices by Pi 3

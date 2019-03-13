@@ -1,3 +1,4 @@
 #!/bin/bash
-
-sudo screen /dev/ttyUSB0 $1
+default='115200'
+baudrate=${1:-$default}
+sudo screen /dev/ttyUSB0 $baudrate

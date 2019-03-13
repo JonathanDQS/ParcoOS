@@ -4,6 +4,6 @@ memzero:
 	str xzr, [x0], #8
 //x1 holds the size to be written with 0s so update until all have been done
 	subs x1, x1, #8
-//Loop if not finished ; QUESTION why the dot?
+//Loop if not finished
 	b.gt memzero
 	ret
