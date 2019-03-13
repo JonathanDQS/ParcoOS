@@ -1,0 +1,14 @@
+Una vez haya corrido build.sh copiar kernel.img 8 a la SD y modificar el
+archivo config.txt como esta en src ademas borrar la imagen anterior
+probablemente llamada kernel7.img
+
+Once build has run copy kernel8.img into the SD and modify config.txt as in src also delete the previous image called kernel7.img
+
+despues llamar a sudo screen ttyUSB0 115200 o el baudrate seteado en el archivo
+
+cambiaste lo de arm_control = 0x200
+
+funciona con 115200
+tambien con 19200 
+sin embargo tiene errores de tiempo no se por que 
+usamos multi procesadores el primero imprime hello world y el segundo recibe y envia lo que enviamos a menos que sea "a" en cuyo caso imprime "hola mundo"
