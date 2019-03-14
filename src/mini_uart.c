@@ -2,7 +2,6 @@
 #include "utils.h"
 #include "peripherals/mini_uart.h"
 #include "peripherals/gpio.h"
-#include "mini_uart.h"
 
 //To use UART we need to activate GPIO pins 14 and 15
 void uart_init (unsigned int baudrate )
@@ -121,7 +120,7 @@ void uart_send_string(char* str)
 }
 
 // This function is required by printf function
-void putc ( void* p, char c)
+void putc (void* p, char c)
 {
 	uart_send(c);
 }

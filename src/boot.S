@@ -115,7 +115,7 @@ master1:
 	//This instruction changes modes
 	eret
 
-el1_entry:
+el2_entry:
 	mov sp, #LOW_MEMORY1
 	bl  kernel_main1
 	b		proc_hang  //Should never come here

@@ -1,12 +1,14 @@
 /*Works with the mini_uart Universal Asynchronous Receiver/Transmitter for
 serial communication*/
-#include "mini_uart.h"
+#include "printf.h"
 #include "utils.h"
+#include "mini_uart.h"
 
 void kernel_main(void)
 {
 	//Initiates the memory locations for the mini_uart
 	uart_init(115200);
+
 	//Initialize printf routine
 	init_printf(0, putc);
 

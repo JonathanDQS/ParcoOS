@@ -4,7 +4,6 @@
 //Declaration of functions implemented in .s files
 extern void delay (unsigned long);
 extern void put32 (unsigned long, unsigned int);
-extern void put321 (unsigned long, unsigned int);
 extern unsigned int get32 (unsigned long);
 extern int get_el (void);
 
