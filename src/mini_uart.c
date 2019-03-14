@@ -85,7 +85,7 @@ void uart_init (unsigned int baudrate )
 }
 
 //After setting the mini_uart we can try it sending and receiving data
-void uart_send ( char c )
+void uart_send (char c)
 {
 	//Start with an infinite loop and use the Line status reg
 	while(1)
@@ -118,4 +118,10 @@ void uart_send_string(char* str)
 	{
 		uart_send((char)str[i]);
 	}
+}
+
+// This function is required by printf function
+void putc ( void* p, char c)
+{
+	uart_send(c);
 }
