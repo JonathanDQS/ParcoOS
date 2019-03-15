@@ -4,6 +4,7 @@
 
 const unsigned int interval = 1000000;
 unsigned int curVal = 0;
+unsigned int seconds = 0;
 
 //Initialize timer by getting counter lower 32 bits
 void timer_init ( void )
@@ -21,5 +22,6 @@ void handle_timer_irq( void )
 	put32(TIMER_C1, curVal);
 	//Acknowledge interrupt handled
 	put32(TIMER_CS, TIMER_CS_M1);
-	printf("Timer interrupt received: %d\n\r", curVal/interval);
+	printf("Timer interrupt received: %d\n\r", seconds);
+	seconds += 1;
 }
