@@ -3,7 +3,7 @@
 
 #define S_FRAME_SIZE			   256 		//Size of all saved registers
 
-//Constants to tell us which exception handler executed
+//Constants to tell us which exception raised
 #define SYNC_INVALID_EL1t		   0
 #define IRQ_INVALID_EL1t		   1
 #define FIQ_INVALID_EL1t		   2

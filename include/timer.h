@@ -2,7 +2,12 @@
 #define	_TIMER_H
 
 //Declare functions to be implemented
-void timer_init ( void );
-void handle_timer_irq ( void );
+//Timer interupt
+void timer_init (void);
+void handle_timer_irq (void);
+
+//Local timer interupt - more realiable
+void local_timer_init (void);
+void handle_local_timer_irq (void);
 
 #endif  /*_TIMER_H */

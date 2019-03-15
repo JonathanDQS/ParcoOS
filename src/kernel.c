@@ -13,11 +13,12 @@ void kernel_main(void)
 
 	//Initialize printf routine
 	init_printf(0, putc);
-
 	//Call the routine to set the vector, handlers
 	irq_vector_init();
 	//Then set the timer interrupt compare value
 	timer_init();
+	//Local timer interupt initialize
+	local_timer_init();
 	//Enable the timer interrupt to be triggered
 	enable_interrupt_controller();
 	//Enable interrupt bit in the processor register

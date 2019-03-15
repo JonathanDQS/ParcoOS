@@ -26,4 +26,9 @@
 #define SYSTEM_TIMER_IRQ_2	(1 << 2)
 #define SYSTEM_TIMER_IRQ_3	(1 << 3)
 
+//Local timer interrupt, core 0 source - set core interrupt source
+#define CORE0_INTERRUPT_SOURCES (LPBASE+0x60)
+//In the previous address bit 11 is the one which holds the Local timer interupt
+#define LTIMER_INTERRUPT        (1 << 11)
+
 #endif  /*_P_IRQ_H */

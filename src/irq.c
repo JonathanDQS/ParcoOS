@@ -43,11 +43,23 @@ void show_invalid_entry_message(int type, unsigned long esr, unsigned long addre
 //Method called to handle the interrupts
 void handle_irq(void)
 {
-	unsigned int irq = get32(IRQ_PENDING_1);
+	unsigned int irqCore = get32(IRQ_PENDING_1);
+	if (irqCore != 0)
+	{
+		switch (irqCore)
+		{
+			case (SYSTEM_TIMER_IRQ_1):
+			handle_timer_irq();	//"Branch" to handler
+			break;
+			default:
+			printf("Unknown pending irq core specific: %x\r\n", irqCore);
+		}
+	}
+	unsigned int irq = get32(CORE0_INTERRUPT_SOURCES);
 	switch (irq)
 	{
-		case (SYSTEM_TIMER_IRQ_1):
-			handle_timer_irq();	//Implementation in timer.c
+		case (LTIMER_INTERRUPT):
+			handle_local_timer_irq();	//Implementation in timer.c
 			break;
 		default:
 			printf("Unknown pending irq: %x\r\n", irq);

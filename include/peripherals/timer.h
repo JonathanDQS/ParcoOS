@@ -22,4 +22,39 @@
 #define TIMER_CS_M2	(1 << 2)
 #define TIMER_CS_M3	(1 << 3)
 
+//Quad A7, page 7
+/*This local timer can generate interrupts and always gets its pulses from the
+crystal clock, 38,4 M pulses/second, it has a 28 bit programmable divider
+Automatically counts down and reloads when it gets to 0, also set interrypt flag
+when it happens, user must clear interrupt flag, "counter" stills run but
+no detection if the flag has not been cleared*/
+//Local timer control and status address of timer interupt "sent" to core 0
+#define LTIMER_CTRL    (LPBASE+0x34)
+
+//In this address we have the bits to
+//Local timer write flags
+#define LTIMER_CLR     (LPBASE+0x38)
+
+/*Bits for the timer control address:
+31 Read only interupt flag
+29 Interrup enable - active high
+28 Timer enabled - active high
+27:0 Re-load value*/
+
+/*Bits for the time clear and reload, only write bits
+31 Interrupt flag clear when 1 written
+30 Local timer-reloaded when 1 written - if written, timer reloaded without
+  interrupt generated
+27:0 Unused*/
+
+//Enable timer
+#define LTIMER_CTRL_EN     (1 << 28)
+//Enable interupt
+#define LTIMER_CTRL_INT_EN (1 << 29)
+//Value to be written to the Timer control address
+#define LTIMER_CTRL_VALUE  (LTIMER_CTRL_EN | LTIMER_CTRL_INT_EN)
+
+//Acknowledge to be written so interrupt handled
+#define LTIMER_CLR_ACK (1 << 31)
+
 #endif  /*_P_TIMER_H */
