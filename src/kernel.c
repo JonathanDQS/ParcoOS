@@ -1,6 +1,8 @@
 /*Works with the mini_uart Universal Asynchronous Receiver/Transmitter for
 serial communication*/
+#include "timer.h"
 #include "printf.h"
+#include "irq.h"
 #include "utils.h"
 #include "mini_uart.h"
 
@@ -11,6 +13,15 @@ void kernel_main(void)
 
 	//Initialize printf routine
 	init_printf(0, putc);
+
+	//Call the routine to set the vector, handlers
+	irq_vector_init();
+	//Then set the timer interrupt compare value
+	timer_init();
+	//Enable the timer interrupt to be triggered
+	enable_interrupt_controller();
+	//Enable interrupt bit in the processor register
+	enable_irq();
 
 	//Print exception level
 	int el = get_el();
