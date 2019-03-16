@@ -3,6 +3,7 @@
 #include "timer.h"
 #include "entry.h"
 #include "peripherals/irq.h"
+#include "mini_uart.h"
 
 //Given a non-handled interrupt print which one was it with help of this array
 const char *entry_error_messages[] =
@@ -43,23 +44,31 @@ void show_invalid_entry_message(int type, unsigned long esr, unsigned long addre
 //Method called to handle the interrupts
 void handle_irq(void)
 {
+	//This could be done better with a jump table
 	unsigned int irqCore = get32(IRQ_PENDING_1);
-	if (irqCore != 0)
+	while (irqCore)
 	{
-		switch (irqCore)
+		if (irqCore & SYSTEM_TIMER_IRQ_1)
 		{
-			case (SYSTEM_TIMER_IRQ_1):
-			handle_timer_irq();	//"Branch" to handler
-			break;
-			default:
+			handle_timer_irq();
+			irqCore &= ~SYSTEM_TIMER_IRQ_1;
+		}
+		else if (irqCore & AUX_IRQ)
+		{
+			handle_uart_irq();
+			irqCore &= ~AUX_IRQ;
+		}
+		else
+		{
 			printf("Unknown pending irq core specific: %x\r\n", irqCore);
 		}
 	}
+
 	unsigned int irq = get32(CORE0_INTERRUPT_SOURCES);
 	switch (irq)
 	{
 		case (LTIMER_INTERRUPT):
-			handle_local_timer_irq();	//Implementation in timer.c
+			handle_local_timer_irq();
 			break;
 		default:
 			printf("Unknown pending irq: %x\r\n", irq);

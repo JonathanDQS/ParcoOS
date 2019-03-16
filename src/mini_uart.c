@@ -77,7 +77,9 @@ void uart_init (unsigned int baudrate )
 	communication channel. Maximum in serial is 115200 bits/sec
 	How to calculate baudrate = system_clock_freq / (8 * ( baudrate_reg + 1 ))
 	115200 = 250M / (8 * ( baudrate_reg + 1 )) which is
-	baudrate_reg = 270,2673611*/
+	baudrate_reg = 270,2673611
+	It uses 8 times oversampling
+	BCM2835 manual, page 11*/
 
 	put32(AUX_MU_IIR_REG, 6);       // Clear FIFO
 	put32(AUX_MU_CNTL_REG,3);       //Finally, enable transmitter and receiver
@@ -123,4 +125,15 @@ void uart_send_string(char* str)
 void putc (void* p, char c)
 {
 	uart_send(c);
+}
+
+//Handler for user input interrupt
+void handle_uart_irq( void )
+{
+	//There may be more than one byte in the FIFO.
+	while((get32(AUX_MU_IIR_REG) & IIR_REG_REC_NON_EMPTY)
+					== IIR_REG_REC_NON_EMPTY)
+	{
+		uart_send(uart_recv());
+	}
 }

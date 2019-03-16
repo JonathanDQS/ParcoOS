@@ -29,10 +29,11 @@ void kernel_main(void)
 	printf("Exception level: %d \r\n", el);
 
 	//Then for everything send to it, it is printed to the screen
-	while (1)
-	{
-			uart_send(uart_recv());
-	}
+	// while (1)
+	// {
+	// 	uart_send(uart_recv());
+	// }
+	//NOT POLLING ANYMORE
 }
 
 //Use another core to print a message with a delay
