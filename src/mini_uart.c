@@ -4,7 +4,7 @@
 #include "peripherals/gpio.h"
 
 //To use UART we need to activate GPIO pins 14 and 15
-void uart_init (unsigned int baudrate )
+void uart_init (unsigned int baudrate)
 {
 	unsigned int selector;
 
@@ -100,7 +100,7 @@ void uart_send (char c)
 	//Put the character in register used for read/write data to/from uart FIFO
 }
 
-char uart_recv ( void )
+char uart_recv (void)
 {
 	while(1)
 	{
@@ -128,7 +128,7 @@ void putc (void* p, char c)
 }
 
 //Handler for user input interrupt
-void handle_uart_irq( void )
+void handle_uart_irq(void)
 {
 	//There may be more than one byte in the FIFO.
 	while((get32(AUX_MU_IIR_REG) & IIR_REG_REC_NON_EMPTY)

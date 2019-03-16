@@ -32,7 +32,7 @@ const char *entry_error_messages[] =
 //This function sets the appropriate register and enables the timer interrupt
 void enable_interrupt_controller()
 {
-	put32(ENABLE_IRQS_1, SYSTEM_TIMER_IRQ_1);
+	put32(ENABLE_IRQS_1, SYSTEM_TIMER_IRQ_1 | AUX_IRQ);
 }
 
 //Message for "invalid" interrupts

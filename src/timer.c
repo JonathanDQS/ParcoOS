@@ -25,7 +25,7 @@ void handle_timer_irq( void )
 	put32(TIMER_C1, curVal);
 	//Acknowledge interrupt handled
 	put32(TIMER_CS, TIMER_CS_M1);
-	printf("Timer interrupt received: %d\n\r", seconds);
+	printf("TimInter: %d\n\r", seconds);
 	seconds += 1;
 }
 
@@ -40,7 +40,7 @@ void local_timer_init ( void )
 //Handler of the local timer
 void handle_local_timer_irq(void)
 {
-	printf("Timer interrupt received accurate: %d\n\r", secondsAc);
+	printf("TimInterAcc: %d\n\r", secondsAc);
 	secondsAc += 1;
 	put32(LTIMER_CLR, LTIMER_CLR_ACK);
 }
