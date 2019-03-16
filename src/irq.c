@@ -65,12 +65,15 @@ void handle_irq(void)
 	}
 
 	unsigned int irq = get32(CORE0_INTERRUPT_SOURCES);
-	switch (irq)
+	if (irq)
 	{
-		case (LTIMER_INTERRUPT):
+		switch (irq)
+		{
+			case (LTIMER_INTERRUPT):
 			handle_local_timer_irq();
 			break;
-		default:
+			default:
 			printf("Unknown pending irq: %x\r\n", irq);
+		}
 	}
 }
