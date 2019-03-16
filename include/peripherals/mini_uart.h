@@ -56,5 +56,6 @@ On write:
   Bit 1 set clears the receive FIFO
   Bit 2 set clears the transmit FIFO*/
 #define IIR_REG_REC_NON_EMPTY 	(1 << 2)
+#define CLEAR_FIFO              (3 << 1)
 
 #endif  /*_P_MINI_UART_H */

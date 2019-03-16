@@ -66,9 +66,10 @@ void uart_init (unsigned int baudrate)
 	//RTS auto flow assert level is high*
 	//CTS auto flow assert level is high*
 
-	put32(AUX_MU_IER_REG,0);        //Disable receive and transmit interrupts
-	put32(AUX_MU_LCR_REG,3);        //Enable 8 bit mode
-	put32(AUX_MU_MCR_REG,0);        //Set RTS line to be always high
+	put32(AUX_MU_IER_REG, IER_REG_VALUE);   /*Enable interrupts for FIFO with at
+	least 1 byte*/
+	put32(AUX_MU_LCR_REG, 3);        //Enable 8 bit mode
+	put32(AUX_MU_MCR_REG, 0);        //Set RTS line to be always high
 
 	put32(AUX_MU_BAUD_REG, baudrate_reg);
 
@@ -81,8 +82,8 @@ void uart_init (unsigned int baudrate)
 	It uses 8 times oversampling
 	BCM2835 manual, page 11*/
 
-	put32(AUX_MU_IIR_REG, 6);       // Clear FIFO
-	put32(AUX_MU_CNTL_REG,3);       //Finally, enable transmitter and receiver
+	put32(AUX_MU_IIR_REG, CLEAR_FIFO);//Clear FIFO
+	put32(AUX_MU_CNTL_REG,3);       	//Finally, enable transmitter and receiver
 }
 
 //After setting the mini_uart we can try it sending and receiving data

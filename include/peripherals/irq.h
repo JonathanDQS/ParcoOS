@@ -29,7 +29,7 @@
 #define SYSTEM_TIMER_IRQ_3           	(1 << 3)
 
 //Use auxiliar interupt to handle user input
-#define AUX_IRQ (1 << 29)
+#define AUX_IRQ                       (1 << 29)
 
 //Core 0 interupt source address, QA7 page 7
 #define CORE0_INTERRUPT_SOURCES       (LPBASE+0x60)
