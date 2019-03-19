@@ -1,3 +1,14 @@
+wget http://raspbian-france.fr/download/raspbian_latest.zip
+Descargar el latest
+
+Buscar la sd
+sudo ls -ltr /dev/*
+
+Despues copiar 
+sudo dd bs=1M if=/path/to/your/raspbian/img of=/dev/your_card_name_without_any_number status=progress conv=fsync
+
+mmcblk0p1
+
 Una vez haya corrido build.sh copiar kernel.img 8 a la SD y modificar el
 archivo config.txt como esta en src ademas borrar la imagen anterior
 probablemente llamada kernel7.img

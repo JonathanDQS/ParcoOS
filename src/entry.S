@@ -190,4 +190,4 @@ el1_irq:
 
 //Go to sleep if we did not handle it
 .globl err_hang
-err_hang: WFI
+err_hang: B err_hang
