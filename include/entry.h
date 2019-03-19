@@ -1,7 +1,7 @@
 #ifndef _ENTRY_H
 #define _ENTRY_H
 
-#define S_FRAME_SIZE			   256 		//Size of all saved registers
+#define S_FRAME_SIZE			     256 		//Size of all saved registers
 
 //Constants to tell us which exception raised
 #define SYNC_INVALID_EL1t		   0

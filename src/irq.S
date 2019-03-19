@@ -1,21 +1,21 @@
 //Here we set the address of the vectors, handlers in the appropriate register
 .globl irq_vector_init
 irq_vector_init:
-	adr	x0, vectors			//Load VBAR_EL1 with table address
-	msr	vbar_el1, x0
-	ret
+	ADR	x0, vectors			//Load VBAR_EL1 with table address
+	MSR	vbar_el1, x0
+	RET
 
 //Enable normal interrupts
 .globl enable_irq
 enable_irq:
-	msr daifclr, #2
-	ret
+	MSR daifclr, #2
+	RET
 
 //Disable normal interrupts
 .globl disable_irq
 disable_irq:
-	msr	daifset, #2
-	ret
+	MSR	daifset, #2
+	RET
 
 /*We do this because the 4 bits which control interrupts are
 3  D debug exceptions. These are a special type of synchronous exceptions.

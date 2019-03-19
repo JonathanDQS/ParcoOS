@@ -29,7 +29,8 @@ const char *entry_error_messages[] =
 	"ERROR_INVALID_EL0_32"
 };
 
-//This function sets the appropriate register and enables the timer interrupt
+/*This function sets the appropriate register and enables the timer and the
+auxiliar for user input interrupt*/
 void enable_interrupt_controller()
 {
 	put32(ENABLE_IRQS_1, SYSTEM_TIMER_IRQ_1 | AUX_IRQ);
@@ -46,6 +47,7 @@ void handle_irq(void)
 {
 	//This could be done better with a jump table
 	unsigned int irqCore = get32(IRQ_PENDING_1);
+	//While interrupts to handle
 	while (irqCore)
 	{
 		if (irqCore & SYSTEM_TIMER_IRQ_1)
@@ -64,6 +66,7 @@ void handle_irq(void)
 		}
 	}
 
+	//Timer external to core 0 handler
 	unsigned int irq = get32(CORE0_INTERRUPT_SOURCES);
 	if (irq)
 	{

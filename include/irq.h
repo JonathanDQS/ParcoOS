@@ -1,7 +1,7 @@
 #ifndef	_IRQ_H
 #define	_IRQ_H
 
-//Functions to be implemented
+//Functions to be implemented to help interrupt settings and handling
 void enable_interrupt_controller(void);
 void irq_vector_init(void);
 void enable_irq(void);

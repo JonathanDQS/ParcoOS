@@ -4,7 +4,7 @@
 
 //Refering to interval variable as frequency in a core can vary
 const unsigned int intervalVar = 1000000;
-const unsigned int interval = 9600000;
+const unsigned int interval = 0x8000000;
 unsigned int curVal = 0;
 unsigned int seconds = 0;
 unsigned int secondsAc = 0;

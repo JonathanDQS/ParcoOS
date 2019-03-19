@@ -2,19 +2,14 @@
 #define _SYSREGS_H
 
 // ***************************************
-// SCTLR_EL1, System Control Register (EL1), Page 3080 ARMv8-A
-// DDI0487D_a_armv8_arm.pdf file
+// SCTLR_EL1, System Control Register (EL1), Page 2654 ARMv8-A
 // ***************************************
 
 /*1.-Ordering and handling of multi load and multistore handled by ARM,
   multi load and store not trapped.
-  2.-Value of privileged access never is left unchanged after taking exception,
-  the taking of an exception to EL1 is a context synchronizing event.
-  EL0 access to SCXTNUM_EL0 is disabled
-  An exception return from EL1 is a context synchronizing event
 */
 
-//Reserved values and set 1 and 2
+//Reserved values and set 1
 #define SCTLR_RESERVED           (3 << 28) | (3 << 22) | (1 << 20) | (1 << 11)
 
 //Endianness exception - set EL1 access to explicit data to little endian
@@ -33,7 +28,7 @@
 #define SCTLR_VALUE_MMU_DISABLED	(SCTLR_RESERVED | SCTLR_EE_LITTLE_ENDIAN | SCTLR_I_CACHE_DISABLED | SCTLR_D_CACHE_DISABLED | SCTLR_MMU_DISABLED)
 
 // ***************************************
-// HCR_EL2, Hypervisor Configuration Register (EL2), Page 2896
+// HCR_EL2, Hypervisor Configuration Register (EL2), Page 2487
 // ***************************************
 
 //The Execution state for EL1 is AArch64 instead of 32 which is also possible
@@ -42,7 +37,7 @@
 #define HCR_VALUE			                  HCR_RW
 
 // ***************************************
-// SCR_EL3, Secure Configuration Register (EL3), Page 3072
+// SCR_EL3, Secure Configuration Register (EL3), Page 2648
 // ***************************************
 
 //Reserved
@@ -50,13 +45,13 @@
 //The next lower level is AArch64. If EL2 present AArch64 else EL1 AArch64
 #define SCR_RW				                  (1 << 10)
 /*Indicates that Exception levels lower than EL3 are in Non-secure state, and
-so memory accesses from those Exception levels cannot access Secure memory.*/
+so memory accesses from those Exception levels cannot be to Secure memory.*/
 #define SCR_NS				                  (1 << 0)
 
 #define SCR_VALUE	    	    	          (SCR_RESERVED | SCR_RW | SCR_NS)
 
 // ***************************************
-// SPSR_EL3, Saved Program Status Register (EL3), Page 408
+// SPSR_EL3, Saved Program Status Register (EL3), Page 389
 // ***************************************
 
 //Mask SError interrupt mask bit, IRQ mask bit, FIQ mask bit, disable interrupts
@@ -67,7 +62,7 @@ so memory accesses from those Exception levels cannot access Secure memory.*/
 #define SPSR_VALUE_EL1	                 (SPSR_MASK_ALL | SPSR_EL1h)
 
 // ***************************************
-// SPSR_EL2, Saved Program Status Register (EL2), Page 408
+// SPSR_EL2, Saved Program Status Register (EL2), Page 383
 // ***************************************
 //AArch64 Exception level and selected Stack Pointer -EL2h
 #define SPSR_EL2h			                   (9 << 0)

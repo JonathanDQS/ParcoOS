@@ -25,14 +25,13 @@
 //Quad A7, page 7
 /*This local timer can generate interrupts and always gets its pulses from the
 crystal clock, 38,4 M pulses/second, it has a 28 bit programmable divider
-Automatically counts down and reloads when it gets to 0, also set interrypt flag
+Automatically counts down and reloads when it gets to 0, also set interrupt flag
 when it happens, user must clear interrupt flag, "counter" stills run but
 no detection if the flag has not been cleared*/
 //Local timer control and status address of timer interupt "sent" to core 0
 #define LTIMER_CTRL    (LPBASE+0x34)
 
-//In this address we have the bits to
-//Local timer write flags
+//Local timer write flags - address where we write
 #define LTIMER_CLR     (LPBASE+0x38)
 
 /*Bits for the timer control address:

@@ -19,7 +19,6 @@ void uart_init (unsigned int baudrate)
 	baudrate_reg &= 0x0000FFFF; //Since the register only takes the 16 lower bits
 
 	//Get register which controls function of GPIOs from 10 to 19
-	//Pins in pull up (1) or pull down (0) when not connected so we need neither
 	selector = get32(GPFSEL1);
 	/*Bits 14:12 of the GPFSEL1 choose the function of the GPIO pin 14
 	000 = GPIO Pin n is an input
@@ -30,12 +29,12 @@ void uart_init (unsigned int baudrate)
 	111 = GPIO Pin n takes alternate function 3
 	011 = GPIO Pin n takes alternate function 4
 	010 = GPIO Pin n takes alternate function 5*/
-	//Refer to the table to check which alternate function is available for GPIO
-	selector &= ~(7<<12);                   //Clean GPIO14
+	//Refer to table to check alternate function available for GPIO - page 102
+	selector &= ~(7<<12);                   //Clean GPIO14 function bits
 	selector |= 2<<12;                      //Set alt5 for GPIO14 which is TXD1
 	//TXD1 serial communication (for mini_uart in our case)
 	/*Bits 17:15 of the GPFSEL1 choose the function of the GPIO pin 15*/
-	selector &= ~(7<<15);                   //Clean GPIO15
+	selector &= ~(7<<15);                   //Clean GPIO15 function bits
 	selector |= 2<<15;                      //Set alt5 for GPIO15 which is RXD1
 	//RXD1 serial communication (for mini_uart in our case)
 	//Write the changes to the appropiate address
@@ -49,11 +48,13 @@ void uart_init (unsigned int baudrate)
 	put32(GPPUD,0);	//So disable pull up/down
 	delay(150);	//Wait 150 cycles, provides required hold time for control signal
 
-	//Assert clock on line n, so assert both pin 14 and 15, as we want to modify
+	/*Details of the process in page 101 - BCM2835 manual - we want to modify
+	function and behaviour of pins 14 and 15 so write to those bits*/
 	put32(GPPUDCLK0,(1<<14)|(1<<15));
 	delay(150); //Wait 150 cycles, provides required hold time for control signal
 	put32(GPPUDCLK0,0); //Then write 0, so remove the clock
 
+	//Important for auxiliary interrupt for user input
 	put32(AUX_ENABLES,1);           //Enable mini uart and access to its registers
 	put32(AUX_MU_CNTL_REG,0);       //Disable auto flow control and disable
 	//receiver and transmitter (for now)
