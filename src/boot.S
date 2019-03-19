@@ -34,11 +34,11 @@ _start:
 
 	//Infinite loop to trap the processors which we are not going to use (yet)
 proc_hang:
-	//B proc_hang
-	WFI
+	WFI		//Wait for interrupt instruction
 
 proc_hang1:
-	B proc_hang
+	WFE
+	B proc_hang1
 
 	//About exception levels
 	/*EL0 has the lowest software execution privilege, and execution at EL0 is
