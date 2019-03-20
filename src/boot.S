@@ -29,16 +29,10 @@ _start:
 
 	CBZ x0, master1
 
-	WFI
-	B	proc_hang
-
-	//Infinite loop to trap the processors which we are not going to use (yet)
+//Loop and tag to make the processor sleep if there is no interrupt
 proc_hang:
-	WFI		//Wait for interrupt instruction
-
-proc_hang1:
-	WFE
-	B proc_hang1
+	WFI								//Wait for interrupt instruction and
+	B proc_hang				//Go back to waiting
 
 	//About exception levels
 	/*EL0 has the lowest software execution privilege, and execution at EL0 is
@@ -96,7 +90,7 @@ el1_entry:
 	//After cleaning we set the stack pointer and pass execution to kernel_main
 	mov	sp, #LOW_MEMORY
 	BL	kernel_main
-	B 	proc_hang1		//Should never come here
+	B 	proc_hang		//Should never come here
 
 master1:
 	//Set the values defined previously in the appropriate registers changing mode
@@ -123,4 +117,4 @@ master1:
 el2_entry:
 	MOV sp, #LOW_MEMORY1
 	BL  kernel_main1
-	B		proc_hang1  //Should never come here
+	B		proc_hang  	//After
