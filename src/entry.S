@@ -48,27 +48,7 @@ Handler: sequence of instructions to be executed when an exception occurs.
 
   /*This saves the state - the whole 30 general purpose registers - not really
   necessary but convenient for now*/
-/*	.macro	kernel_entry
-	SUB	sp, sp, #S_FRAME_SIZE
-  //STP store pair of registers
-	STP	x0, x1, [sp], #16
-	STP	x2, x3, [sp], #16
-	STP	x4, x5, [sp], #16
-	STP	x6, x7, [sp], #16
-	STP	x8, x9, [sp], #16
-	STP	x10, x11, [sp], #16
-	STP	x12, x13, [sp], #16
-	STP	x14, x15, [sp], #16
-	STP	x16, x17, [sp], #16
-	STP	x18, x19, [sp], #16
-	STP	x20, x21, [sp], #16
-	STP	x22, x23, [sp], #16
-	STP	x24, x25, [sp], #16
-	STP	x26, x27, [sp], #16
-	STP	x28, x29, [sp], #16
-	STR	x30, [sp]
-	.endm
-*/
+
 	.macro	kernel_entry
 	SUB	sp, sp, #S_FRAME_SIZE
 	STP	x0, x1, [sp, #16 * 0]
@@ -86,11 +66,24 @@ Handler: sequence of instructions to be executed when an exception occurs.
 	STP	x24, x25, [sp, #16 * 12]
 	STP	x26, x27, [sp, #16 * 13]
 	STP	x28, x29, [sp, #16 * 14]
-	STR	x30, [sp, #16 * 15]
+
+	/*Very important since interrupts can happen while we switch tasks so we
+	need to keep the return addresses in these special registers*/
+	//Not very clear so far
+	MRS	x22, elr_el1
+	MRS	x23, spsr_el1
+
+	STP	x30, x22, [sp, #16 * 15]
+	STR	x23, [sp, #16 * 16]
 	.endm
 
   //This returns the values to the registers
 	.macro	kernel_exit
+	LDR	x23, [sp, #16 * 16]
+	LDP	x30, x22, [sp, #16 * 15]
+
+	MSR	elr_el1, x22
+	MSR	spsr_el1, x23
   //Load pair of registers
 	LDP	x0, x1, [sp, #16 * 0]
 	LDP	x2, x3, [sp, #16 * 1]
@@ -107,7 +100,6 @@ Handler: sequence of instructions to be executed when an exception occurs.
 	LDP	x24, x25, [sp, #16 * 12]
 	LDP	x26, x27, [sp, #16 * 13]
 	LDP	x28, x29, [sp, #16 * 14]
-	LDR	x30, [sp, #16 * 15]
 	ADD	sp, sp, #S_FRAME_SIZE
 	ERET
 	.endm
@@ -188,6 +180,17 @@ el1_irq:
 	BL	handle_irq
 	kernel_exit
 
+//Function to go when task called
+.globl ret_from_fork
+ret_from_fork:
+	BL	schedule_tail							//Enables preemtion of the new task
+	MOV	x0, x20										/*Then call function in register x19 with
+	arguments in register x20*/
+	BLR	x19 		/*Branch with link to register- calls a subroutine at an address
+in a register - then setting register X30 to PC + 4*/
+
 //Go to sleep if we did not handle it
 .globl err_hang
-err_hang: B err_hang
+err_hang:
+	WFI
+	B err_hang
