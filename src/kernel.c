@@ -5,6 +5,8 @@ serial communication*/
 #include "irq.h"
 #include "utils.h"
 #include "mini_uart.h"
+#include "fork.h"
+#include "sched.h"
 
 //Process to prove scheduler works, must give it a "string" of 5 chars
 void process(char *array)

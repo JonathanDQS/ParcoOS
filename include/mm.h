@@ -1,6 +1,8 @@
 #ifndef	_MM_H
 #define	_MM_H
 
+#include "peripherals/base.h"
+
 //Memory management for future development, for now just to make it work
 #define PAGE_SHIFT	 		  12
 #define TABLE_SHIFT 			9

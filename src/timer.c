@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "printf.h"
 #include "peripherals/timer.h"
+#include "sched.h"
 
 //Refering to interval variable as frequency in a core can vary
 const unsigned int intervalVar = 0x4000000;
