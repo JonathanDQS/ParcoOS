@@ -4,10 +4,12 @@
 #include "sched.h"
 
 //Refering to interval variable as frequency in a core can vary
-const unsigned int intervalVar = 0x4000000;
-const unsigned int interval = 0x8000000;
+//Variable for processor clock, 1MHz
+const unsigned int intervalVar = 1000000;
+//Variable for outer clock, crystal clock, only 28 bits, 38,4Mhz
+const unsigned int interval = 38400000;
 unsigned int curVal = 0;
-unsigned int seconds = 0;
+unsigned int cycles = 0;
 unsigned int secondsAc = 0;
 
 //Initialize timer by getting counter lower 32 bits
@@ -26,8 +28,8 @@ void handle_timer_irq( void )
 	put32(TIMER_C1, curVal);
 	//Acknowledge interrupt handled
 	put32(TIMER_CS, TIMER_CS_M1);
-	printf("TimInter: %d\n\r", seconds);
-	seconds += 1;
+	printf("TimInter: %d\n\r", cycles);
+	cycles += 1;
 	timer_tick();
 }
 

@@ -4,6 +4,7 @@
 #include "peripherals/base.h"
 
 //Manual addresses, BCM2835 page 172
+//System timer running at 1MHz
 //Control/status memory address
 #define TIMER_CS        (PBASE+0x00003000)
 //Counter lower 32 bits
@@ -24,7 +25,7 @@
 
 //Quad A7, page 7
 /*This local timer can generate interrupts and always gets its pulses from the
-crystal clock, 38,4 M pulses/second, it has a 28 bit programmable divider
+crystal clock, 38,4MHz, it has a 28 bit programmable divider
 Automatically counts down and reloads when it gets to 0, also set interrupt flag
 when it happens, user must clear interrupt flag, "counter" stills run but
 no detection if the flag has not been cleared*/
