@@ -1,28 +1,20 @@
-wget http://raspbian-france.fr/download/raspbian_latest.zip
-Descargar el latest
+Resources used
+https://cdn-learn.adafruit.com/downloads/pdf/adafruits-raspberry-pi-lesson-5-using-a-console-cable.pdf
+https://github.com/raspberrypi/documentation/files/1888662/BCM2837-ARM-Peripherals.-.Revised.-.V2-1.pdf
+https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf
+https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2836/QA7_rev3.4.pdf
 
-Buscar la sd
-sudo ls -ltr /dev/*
+If you have a microSD without raspeberry OS
 
-Despues copiar 
-sudo dd bs=1M if=/path/to/your/raspbian/img of=/dev/your_card_name_without_any_number status=progress conv=fsync
+wget http://raspbian-france.fr/download/raspbian_latest.zip	//Download latest with this command
 
-mmcblk0p1
+sudo dd bs=1M if=/path/to/your/raspbian/img of=/dev/your_card_name_without_any_number status=progress conv=fsync //Then create disk and copy files
 
-Una vez haya corrido build.sh copiar kernel.img 8 a la SD y modificar el
-archivo config.txt como esta en src ademas borrar la imagen anterior
-probablemente llamada kernel7.img
+Then copy "config.txt" file into the "boot" partition of the microSD
 
-Once build has run copy kernel8.img into the SD and modify config.txt as in src also delete the previous image called kernel7.img
+Run "make all" and copy "kernel8.img" and delete "kernel7.img" file
 
-despues llamar a sudo screen ttyUSB0 115200 o el baudrate seteado en el archivo
-
-cambiaste lo de arm_control = 0x200
-
-usamos multi procesadores el primero imprime hello world y el segundo recibe y envia lo que enviamos
-
-cuidado con tener multiple screen up
-screen -ls
-y luego kill
-
-o sino cuando en la screen ctrl+a y luego :quit
+//Connect the USB then call
+sudo screen ttyUSB0 115200 
+//or execute
+run.sh

@@ -5,7 +5,6 @@
 #include "peripherals/base.h"
 
 //GPIO function select 1
-//0x7E200004 QUESTION why base is 0x3F000000 rather than 0X7F?
 //BCM2835 manual - page 91
 //General purpose I/0 function select registers 1
 #define GPFSEL1         (PBASE+0x00200004)
