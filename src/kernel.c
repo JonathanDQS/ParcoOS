@@ -16,7 +16,7 @@ void process(char *array)
 		for (int i = 0; i < 5; i++)
 		{
 			uart_send(array[i]);
-			delay(250000);
+			delay(450000);
 		}
 	}//Keep in this process till we have another one to run or interrupt
 }

@@ -5,9 +5,9 @@
 
 //Refering to interval variable as frequency in a core can vary
 //Variable for processor clock, 1MHz
-const unsigned int intervalVar = 1000000;
+const unsigned int intervalVar = 2000000;
 //Variable for outer clock, crystal clock, only 28 bits, 38,4Mhz
-const unsigned int interval = 38400000;
+const unsigned int interval = 76800000;
 unsigned int curVal = 0;
 unsigned int cycles = 0;
 unsigned int secondsAc = 0;
@@ -28,7 +28,7 @@ void handle_timer_irq( void )
 	put32(TIMER_C1, curVal);
 	//Acknowledge interrupt handled
 	put32(TIMER_CS, TIMER_CS_M1);
-	printf("TimInter: %d\n\r", cycles);
+	printf("\n\rTimInter: %d\n\r", cycles);
 	cycles += 1;
 	timer_tick();
 }
@@ -44,7 +44,7 @@ void local_timer_init ( void )
 //Handler of the local timer
 void handle_local_timer_irq(void)
 {
-	printf("TimInterAcc: %d\n\r", secondsAc);
+	printf("\n\rTimInterAcc: %d\n\r", secondsAc);
 	secondsAc += 1;
 	put32(LTIMER_CLR, LTIMER_CLR_ACK);
 }
